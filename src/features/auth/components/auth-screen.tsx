@@ -9,7 +9,7 @@ const AuthScreen = () => {
     const [state, setState] = useState<SignInFlow>("signIn");
 
     return (
-        <div className="h-[100vh] flex items-center justify-center">
+        <div className="h-[100vh] flex bg-[#5c3b58] items-center justify-center">
             <div className="md:h-auto md:w-[450px]">
                 {state === 'signIn' ? <SignInCard setState={setState} /> : <SignUpCard setState={setState} />}
             </div>
