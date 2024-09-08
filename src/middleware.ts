@@ -9,13 +9,13 @@ const isPublicPage = createRouteMatcher(["/auth"]);
 // const isProtectedRoute = createRouteMatcher(["/product(.*)"]);
 
 export default convexAuthNextjsMiddleware((request) => {
-  // if (!isPublicPage(request) && !isAuthenticatedNextjs()) {
-  //   return nextjsMiddlewareRedirect(request, "/auth");
-  // }
+  if (!isPublicPage(request) && !isAuthenticatedNextjs()) {
+    return nextjsMiddlewareRedirect(request, "/auth");
+  }
 
-  // if (isPublicPage(request) && isAuthenticatedNextjs()) {
-  //   return nextjsMiddlewareRedirect(request, "/");
-  // }
+  if (isPublicPage(request) && isAuthenticatedNextjs()) {
+    return nextjsMiddlewareRedirect(request, "/");
+  }
 });
 
 export const config = {
