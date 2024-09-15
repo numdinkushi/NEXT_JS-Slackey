@@ -1,11 +1,22 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Toolbar from './toolbar';
 import Sidebar from './sidebar';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import WorkspaceSidebar from './workspace-sidebar';
 
 const WorkspaceLayout = ({ children }: { children: React.ReactNode; }) => {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        return () => setMounted(false);
+    }, []);
+
+    if (!mounted) {
+        return null;
+    }
+
     return (
         <div className='h-full'>
             <Toolbar />
