@@ -35,6 +35,11 @@ export const create = mutation({
       role: "admin",
     });
 
+    await ctx.db.insert('channels', {
+      name: "General",
+      workspaceId
+    });
+
     return workspaceId;
   }
 });
@@ -78,7 +83,7 @@ export const getById = query({
 
     const member = await ctx.db
       .query('members')
-      .withIndex('by_workspace_id_userId', (q) =>
+      .withIndex('by_workspace_id_user_id', (q) =>
         q.eq("workspaceId", args.id).eq("userId", userId)
       )
       .unique();
@@ -103,7 +108,7 @@ export const update = mutation({
 
     const member = await ctx.db
       .query('members')
-      .withIndex('by_workspace_id_userId', (q) =>
+      .withIndex('by_workspace_id_user_id', (q) =>
         q.eq("workspaceId", args.id).eq("userId", userId)
       )
       .unique();
@@ -133,7 +138,7 @@ export const remove = mutation({
 
     const member = await ctx.db
       .query('members')
-      .withIndex('by_workspace_id_userId', (q) =>
+      .withIndex('by_workspace_id_user_id', (q) =>
         q.eq("workspaceId", args.id).eq("userId", userId)
       )
       .unique();
