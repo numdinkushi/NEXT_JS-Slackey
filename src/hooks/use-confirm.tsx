@@ -1,33 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useState } from "react";
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useState } from "react"
 
 export const useConfirm = (
     title: string,
     message: string
 ): [() => JSX.Element, () => Promise<unknown>] => {
-    const [promise, setPromise] = useState<{ resolve: (value: boolean) => void; } | null>(null);
+    const [promise, setPromise] = useState<{ resolve: (value: boolean) => void } | null>(null)
 
     const confirm = () => new Promise((resolve) => {
-        setPromise({ resolve });
+        setPromise({ resolve })
         // Show modal
-    });
+    })
 
     const handleClose = () => {
-        setPromise(null);
+        setPromise(null)
         // Close modal
-    };
+    }
 
     const handleCancel = () => {
-        promise?.resolve(false);
-        handleClose();
-    };
+        promise?.resolve(false)
+        handleClose()
+    }
 
     const handleConfirm = () => {
-        promise?.resolve(true);
-        handleClose();
-    };
+        promise?.resolve(true)
+        handleClose()
+    }
 
     const ConfirmDialog = () => {
 
@@ -54,9 +54,9 @@ export const useConfirm = (
                         Confirm
                     </Button>
                 </DialogFooter>
-            </DialogContent >;
-        </Dialog>;
-    };
+            </DialogContent >
+        </Dialog>
+    }
 
-    return [ConfirmDialog, confirm];
-};
+    return [ConfirmDialog, confirm]
+}
