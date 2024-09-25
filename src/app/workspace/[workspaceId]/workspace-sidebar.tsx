@@ -7,17 +7,19 @@ import WorkspaceHeader from './workspace-header';
 import SidebarItem from './sidebar-item';
 import { useGetChannels } from '@/features/channels/api/use-get-channels';
 import { WorkspaceSection } from './worspace-section';
-import { useToggle } from "react-use";
 import { useGetMembers } from '@/features/members/api/use-get-members';
 import UserItem from './use-item';
 import { useCreateChannelModal } from '@/features/channels/store/use-create-channel-modal';
+import useChannelId from '@/hooks/use-channel-id';
 
 const WorkspaceSidebar = () => {
     const workspaceId = useWorkspaceId();
+    const channelId = useChannelId();
     const { data: member, isLoading: memberLoading } = useCurrentMember({ workspaceId });
     const { data: workspace, isLoading: workspaceLoading } = useGetWorkSpace({ id: workspaceId });
-    const { data: channels, isLoading: channelsLoading } = useGetChannels({ workspaceId });
-    const { data: members, isLoading: membersLoading } = useGetMembers({ workspaceId });
+    const { data: channels, } = useGetChannels({ workspaceId });
+    const { data: members, } = useGetMembers({ workspaceId });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_open, setOpen] = useCreateChannelModal();
 
     if (workspaceLoading || memberLoading) {
@@ -65,6 +67,7 @@ const WorkspaceSidebar = () => {
                             icon={HashIcon}
                             label={item.name}
                             id={item._id}
+                            variant={channelId === item._id ? 'active' : 'default'}
                         />;
                     })
                 }
