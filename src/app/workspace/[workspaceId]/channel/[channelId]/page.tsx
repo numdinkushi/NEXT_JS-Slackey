@@ -4,6 +4,7 @@ import useChannelId from '@/hooks/use-channel-id';
 import { Loader, TriangleAlert } from 'lucide-react';
 import React from 'react';
 import Header from '../channel-header';
+import ChatInput from './chat-input';
 
 const ChanelIdPage = () => {
   const channelId = useChannelId();
@@ -26,6 +27,8 @@ const ChanelIdPage = () => {
   return (
     <div className='flex flex-col h-full'>
       <Header title={channel.name} />
+      <div className="flex-1" />
+      <ChatInput placeholder={`Message # ${channel.name}`} />
     </div>
   );
 };
