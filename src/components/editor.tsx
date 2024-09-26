@@ -3,12 +3,13 @@ import Quill, { type QuillOptions } from "quill";
 import "quill/dist/quill.snow.css";
 import { Button } from './ui/button';
 import { PiTextAa } from 'react-icons/pi';
-import { ImageIcon, Smile } from 'lucide-react';
+import { ImageIcon, Smile, XIcon } from 'lucide-react';
 import { MdSend } from "react-icons/md";
 import Hint from './hint';
 import { Delta, Op } from "quill/core";
 import { cn } from '@/lib/utils';
 import EmojiPopover from './emoji-popover';
+import Image from 'next/image';
 
 type EditorValue = {
     image: File | null;
@@ -36,13 +37,14 @@ const Editor = ({
 }: EditorProps) => {
     const [text, setText] = useState('');
     const [isToolbarVisible, setIsToolbarVisible] = useState(true);
-
+    const [image, setImage] = useState<File | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const submitRef = useRef(onSubmit);
     const placeholderRef = useRef(placeholder);
     const quillRef = useRef<Quill | null>(null);
     const defaultValueRef = useRef(defaultValue);
     const disabledRef = useRef(disabled);
+    const imageElementRef = useRef<HTMLInputElement>(null);
 
     useLayoutEffect(() => {
         submitRef.current = onSubmit;
@@ -129,6 +131,7 @@ const Editor = ({
         }
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onEmojiSelect = (emoji: any) => {
         const quill = quillRef.current;
 
@@ -137,8 +140,40 @@ const Editor = ({
 
     return (
         <div className='flex flex-col'>
+            <input
+                type='file'
+                accept='image/*'
+                className='hidden'
+                ref={imageElementRef}
+                onChange={(event) => setImage(event.target.files![0])}
+            />
             <div className="flex flex-col border border-slate-200 rounded-md overflow-hidden focus-within:border-slate-300 focus-within:shadow-sm transition bg-white">
                 <div className="h-full ql-custom" ref={containerRef} />
+                {
+                    !!image && (
+                        <div className="p-2">
+                            <div className="relative size-[62] flex items-center justify-center group/image">
+                                <Hint label='Remove image'>
+                                    <button
+                                        onClick={() => {
+                                            setImage(null);
+                                            imageElementRef.current!.value = '';
+                                        }}
+                                        className='hidden group-hover/image:flex rounded-full bg-black/70 hover:bg-black absolute -top-2.5 -right-2.5 text-white size-6 z-[4] border-2 border-white items-center justify-center'
+                                    >
+                                        <XIcon className='size-3.5' />
+                                    </button>
+                                </Hint>
+                                <Image
+                                    src={URL.createObjectURL(image)}
+                                    fill
+                                    alt='uploaded'
+                                    className='rounded-xl overflow-hidden border object-cover'
+                                />
+                            </div>
+                        </div>
+                    )
+                }
                 <div className="flex px-2 pb-2 z-[5]">
                     <Hint label={isToolbarVisible ? 'Hide formatting' : 'show formatting'}>
                         <Button disabled={disabled}
@@ -166,7 +201,7 @@ const Editor = ({
                                     disabled={disabled}
                                     size='iconSm'
                                     variant='ghost'
-                                    onClick={() => { }}
+                                    onClick={() => imageElementRef.current?.click()}
                                 >
                                     <ImageIcon className='size-4' />
                                 </Button>
