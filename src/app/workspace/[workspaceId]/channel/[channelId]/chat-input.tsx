@@ -48,6 +48,7 @@ const ChatInput = ({ placeholder }: ChatInputProps) => {
 
             if (image) {
                 const url = await generateUploadUrl({}, { throwError: true });
+                console.log(8824, JSON.stringify(image));
 
                 if (!url) {
                     throw new Error('Url not found');
@@ -61,7 +62,7 @@ const ChatInput = ({ placeholder }: ChatInputProps) => {
                     body: image,
                 });
 
-                if(!result.ok){
+                if (!result.ok) {
                     throw new Error('Failed to upload image');
                 }
 

@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { mutation, query, QueryCtx } from "./_generated/server";
+import { mutation, query, QueryCtx,   } from "./_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { Doc, Id } from "./_generated/dataModel";
 import { paginationOptsValidator } from "convex/server";
@@ -116,6 +116,7 @@ export const get = query({
 
                         const reactions = await populateReactions(ctx, message._id);
                         const thread = await populateThread(ctx, message._id);
+                        console.log(912, message.image);
                         const image = message.image
                             ? await ctx.storage.getUrl(message.image)
                             : undefined;
@@ -169,7 +170,7 @@ export const get = query({
                     })
                 )
             ).filter(
-                (message) : message is NonNullable<typeof message> => message !== null
+                (message): message is NonNullable<typeof message> => message !== null
             )
         };
     }
