@@ -31,8 +31,6 @@ const ChanelIdPage = () => {
   }
 
  
-  console.log(123, results);
-
   if (!channel) {
     return <div className='h-full flex-1 flex flex-col gap-y-4 items-center justify-center '>
       <TriangleAlert className='size-6 text-muted-foreground' />
@@ -46,7 +44,7 @@ const ChanelIdPage = () => {
     <>
       <div className='flex relative flex-col h-full overflow-y-scroll '>
         <Header title={channel.name} />
-        <div className="flex-1 " >
+        <div className="flex-1 mb-28" >
           <MessageList
             channelName={channel.name}
             channelCreationTime={channel._creationTime}
@@ -54,9 +52,10 @@ const ChanelIdPage = () => {
             isLoadingMore={status === 'LoadingMore'}
             canLoadMore={status === 'CanLoadMore'}
             data={results}
+            variant='channel'
           />
         </div>
-        <div className="bottom-0 w-full max-h-32 fixed">
+        <div className="bottom-0 w-full max-h-40 fixed">
           <ChatInput placeholder={`Message # ${channel.name}`} />
         </div>
       </div>

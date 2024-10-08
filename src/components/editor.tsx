@@ -144,7 +144,7 @@ const Editor = ({
     };
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col max-h-48 overflow-y-scroll'>
             <input
                 type='file'
                 accept='image/*'
