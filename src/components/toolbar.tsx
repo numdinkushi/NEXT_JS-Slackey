@@ -45,6 +45,7 @@ const Toolbar = (
                                 size='iconSm'
                                 className='size-4'
                                 disabled={isPending}
+                                onClick={handleThread}
                             >
                                 <MessageSquareTextIcon />
                             </Button>
@@ -59,6 +60,7 @@ const Toolbar = (
                                 size='iconSm'
                                 className='size-4'
                                 disabled={isPending}
+                                onClick={handleEdit}
                             >
                                 <Pencil />
                             </Button>
@@ -73,6 +75,7 @@ const Toolbar = (
                                 size='iconSm'
                                 className='size-4'
                                 disabled={isPending}
+                                onClick={handleDelete}
                             >
                                 <Trash />
                             </Button>
