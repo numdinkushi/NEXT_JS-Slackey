@@ -121,6 +121,7 @@ const Message = ({
 
         return `${isToday(date) ? 'Today' : isYesterday(date) ? 'Yesterday' : format(date, 'MMM  d, yyy')} at ${format(date, 'h:mm:ss a')}`;
     };
+    
 
     if (isCompact) {
         return (
