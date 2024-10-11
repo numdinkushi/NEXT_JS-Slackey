@@ -23,14 +23,14 @@ const ChanelIdPage = () => {
   if (!mounted) {
     return null;
   }
-  
+
   if (chanelLoading || status === 'LoadingFirstPage') {
     return <div className='h-full flex-1 flex items-center justify-center '>
       <Loader className='animate-spin size-5 text-muted-foreground' />
     </div>;
   }
 
- 
+
   if (!channel) {
     return <div className='h-full flex-1 flex flex-col gap-y-4 items-center justify-center '>
       <TriangleAlert className='size-6 text-muted-foreground' />
@@ -41,10 +41,12 @@ const ChanelIdPage = () => {
 
 
   return (
-    <>
-      <div className='flex relative flex-col h-full overflow-y-scroll '>
-        <Header title={channel.name} />
-        <div className="flex-1 mb-28" >
+    <div className='flex flex-col pb-16'>
+        <div className="">
+          <Header title={channel.name} />
+        </div>
+      <div className='flex  flex-col h-[65vh] overflow-y-scroll '>
+        <div className=" mb-28" >
           <MessageList
             channelName={channel.name}
             channelCreationTime={channel._creationTime}
@@ -55,11 +57,11 @@ const ChanelIdPage = () => {
             variant='channel'
           />
         </div>
-        <div className="bottom-0 w-full max-h-40 fixed">
-          <ChatInput placeholder={`Message # ${channel.name}`} />
-        </div>
       </div>
-    </>
+      <div className="flex-1 mt-40">
+        <ChatInput placeholder={`Message # ${channel.name}`} />
+      </div>
+    </div>
   );
 };
 

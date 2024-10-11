@@ -13,6 +13,7 @@ import { useRemoveMessage } from '@/features/messages/api/use-remove-message';
 import { useConfirm } from '@/hooks/use-confirm';
 import { useToggleReaction } from '@/features/reactions/api/use-toggle-reaction';
 import Reactions from './reactions';
+import { usePanel } from '@/hooks/use-panel';
 
 const Renderer = dynamic(() => import('@/components/renderer'), { ssr: false });
 const Editor = dynamic(() => import('@/components/editor'), { ssr: false });
@@ -63,6 +64,7 @@ const Message = ({
     threadTimestamp,
     // edited
 }: MessageProps) => {
+    const { onOpenMessage, parentMessageId, onClose } = usePanel();
     const avatarFallback = authorName.charAt(0).toUpperCase();
     const [ConfirmDialog, confirm] = useConfirm(
         "Delete message",
@@ -105,7 +107,9 @@ const Message = ({
                 toast.success('Message deleted successfully');
                 setEditingId(null);
 
-                // TODO: close thread if opened
+                if (parentMessageId === id) {
+                    onClose();
+                }
             },
             onError: () => {
                 toast.error('Failed to delete message');
@@ -174,7 +178,7 @@ const Message = ({
                                 isAuthor={isAuthor}
                                 isPending={isPending}
                                 handleEdit={() => setEditingId(id)}
-                                handleThread={() => { }}
+                                handleThread={() => onOpenMessage(id)}
                                 handleDelete={handleRemove}
                                 hideThreadButton={hideThreadButton}
                                 handleReaction={handleReaction}
@@ -205,7 +209,7 @@ const Message = ({
                     </button>
                     {
                         isEditing ? (
-                            <div className="w-full h-full ">
+                            <div className="w-full h-full mt-40">
                                 <Editor
                                     onSubmit={handleUpdate}
                                     disabled={isPending}
@@ -243,7 +247,7 @@ const Message = ({
                             isAuthor={isAuthor}
                             isPending={isPending}
                             handleEdit={() => setEditingId(id)}
-                            handleThread={() => { }}
+                            handleThread={() => onOpenMessage(id)}
                             handleDelete={handleRemove}
                             hideThreadButton={hideThreadButton}
                             handleReaction={handleReaction}
