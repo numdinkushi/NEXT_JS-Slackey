@@ -27,7 +27,10 @@ const Toolbar = (
     return (
         <div className='absolute top-0 right-5'>
             <div className="flex gap-2 group-hover:opacity-100 opacity-0 transition-opacity border bg-white rounded-md shadow-sm">
-                <EmojiPopover hint='Add reaction' onEmojiSelect={(emoji) => handleReaction(emoji.string)}>
+                <EmojiPopover hint='Add reaction' onEmojiSelect={(emoji) => {
+                    console.log(12313, emoji)
+                    handleReaction(emoji.native)}
+                    }>
                     <Button
                         variant='ghost'
                         size='iconSm'
