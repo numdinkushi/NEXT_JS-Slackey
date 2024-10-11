@@ -171,8 +171,8 @@ const Thread = ({ messageId, onClose }: ThreadProps) => {
                 </Button>
             </div>
             <div className='flex  flex-col h-[65vh] overflow-y-scroll '>
-                <div className=" mb-28" >
-                    <div className="flex-1 flex flex-col-reverse pb-4 overflow-auto messages-scrollbar">
+                <div className=" mb-28 " >
+                    <div className="flex-1 flex flex-col-reverse pb-4 messages-scrollbar">
                         {Object.entries(groupedMessages || {}).map(([dateKey, messages]) => (
                             <div className="" key={dateKey}>
                                 <div className="text-center my-2 relative">
