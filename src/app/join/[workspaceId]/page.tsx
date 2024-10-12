@@ -1,10 +1,10 @@
 'use client';
+import Loading from '@/components/loading';
 import { Button } from '@/components/ui/button';
 import { useGetWorkSpaceInfo } from '@/features/workspaces/api/use-get-workspace-info';
 import { useJoin } from '@/features/workspaces/api/use-join';
 import useWorkspaceId from '@/hooks/use-workspace-id';
 import { cn } from '@/lib/utils';
-import { Loader } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -37,11 +37,7 @@ const JoinPage = () => {
     };
 
     if (isLoading) {
-        return (
-            <div className="h-full flex items-center justify-center">
-                <Loader className='size-6 animate-spin text-muted-foreground' />
-            </div>
-        );
+        return <Loading />;
     }
 
     return (

@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import useChannelId from "@/hooks/use-channel-id";
 import { useGetMessages } from "../api/use-get-messages";
 import { differenceInMinutes, format, isToday, isYesterday } from "date-fns";
+import Loading from "@/components/loading";
 
 const formatDateLabel = (dateStrL: string) => {
     const date = new Date(dateStrL);
@@ -139,9 +140,7 @@ const Thread = ({ messageId, onClose }: ThreadProps) => {
                     <XIcon className="size-5 stroke-[1.51]" />
                 </Button>
             </div>
-            <div className='flex flex-col gap-y-2 h-full items-center justify-center' >
-                <Loader className="size-5 animate-spin text-muted-foreground" />
-            </div>;
+           <Loading />
         </div>;
     }
 

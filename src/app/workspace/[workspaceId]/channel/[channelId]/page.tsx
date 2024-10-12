@@ -7,6 +7,8 @@ import Header from '../channel-header';
 import ChatInput from './chat-input';
 import { useGetMessages } from '@/features/messages/api/use-get-messages';
 import { MessageList } from '@/components/message-list';
+import Loading from '@/components/loading';
+import NotAvailable from '@/components/not-available';
 
 const ChanelIdPage = () => {
   const channelId = useChannelId();
@@ -25,26 +27,18 @@ const ChanelIdPage = () => {
   }
 
   if (chanelLoading || status === 'LoadingFirstPage') {
-    return <div className='h-full flex-1 flex items-center justify-center '>
-      <Loader className='animate-spin size-5 text-muted-foreground' />
-    </div>;
+    return <Loading />;
   }
-
 
   if (!channel) {
-    return <div className='h-full flex-1 flex flex-col gap-y-4 items-center justify-center '>
-      <TriangleAlert className='size-6 text-muted-foreground' />
-      <span className='text-sm text-muted-foreground'>Channel not found</span>
-    </div>;
+    return <NotAvailable message='Channel not found' />
   }
-
-
 
   return (
     <div className='flex flex-col pb-16'>
-        <div className="">
-          <Header title={channel.name} />
-        </div>
+      <div className="">
+        <Header title={channel.name} />
+      </div>
       <div className='flex  flex-col h-[65vh] overflow-y-scroll '>
         <div className=" mb-28" >
           <MessageList

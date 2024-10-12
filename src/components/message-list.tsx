@@ -7,11 +7,13 @@ import { Id } from "../../convex/_generated/dataModel";
 import useWorkspaceId from "@/hooks/use-workspace-id";
 import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { ArrowUp, Loader } from "lucide-react";
+import ConversationHero from "./conversation-hero";
 
 const TIME_THRESHOLD = 5;
 
 interface MessageListProps {
     member?: string;
+    memberName?: string;
     memberImage?: string;
     channelName?: string;
     channelCreationTime?: number;
@@ -37,6 +39,7 @@ export const MessageList = ({
     channelCreationTime,
     variant,
     data,
+    memberName,
     loadMore,
     isLoadingMore,
     canLoadMore,
@@ -133,6 +136,14 @@ export const MessageList = ({
                     <ChannelHero
                         name={channelName}
                         creationTime={channelCreationTime}
+                    />
+                )
+            }
+            {
+                variant === 'conversation' && memberName && memberImage && (
+                    <ConversationHero
+                        name={memberName}
+                        image={memberImage}
                     />
                 )
             }

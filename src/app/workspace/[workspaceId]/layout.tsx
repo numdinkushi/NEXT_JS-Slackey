@@ -8,6 +8,7 @@ import { usePanel } from '@/hooks/use-panel';
 import { Loader } from 'lucide-react';
 import { Id } from '../../../../convex/_generated/dataModel';
 import Thread from '@/features/messages/components/thread';
+import Loading from '@/components/loading';
 
 const WorkspaceLayout = ({ children }: { children: React.ReactNode; }) => {
     const [mounted, setMounted] = useState(false);
@@ -55,9 +56,7 @@ const WorkspaceLayout = ({ children }: { children: React.ReactNode; }) => {
                                                 onClose={onClose}
                                             />
                                         ) : (
-                                            <div className='flex h-full items-center justify-center' >
-                                                <Loader className="size-5 animate-spin text-muted-foreground" />
-                                            </div>
+                                            <Loading />
                                         )
                                     }
                                 </ResizablePanel>
