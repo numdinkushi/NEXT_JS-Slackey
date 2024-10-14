@@ -14,6 +14,7 @@ import { useConfirm } from '@/hooks/use-confirm';
 import { useToggleReaction } from '@/features/reactions/api/use-toggle-reaction';
 import Reactions from './reactions';
 import { usePanel } from '@/hooks/use-panel';
+import ThreadBar from './thread-bar';
 
 const Renderer = dynamic(() => import('@/components/renderer'), { ssr: false });
 const Editor = dynamic(() => import('@/components/editor'), { ssr: false });
@@ -40,6 +41,7 @@ interface MessageProps {
     hideThreadButton?: boolean;
     threadCount?: number;
     threadImage?: string;
+    threadName?: string;
     threadTimestamp?: number;
 }
 
@@ -62,6 +64,7 @@ const Message = ({
     threadCount,
     threadImage,
     threadTimestamp,
+    threadName
     // edited
 }: MessageProps) => {
     const { onOpenMessage, parentMessageId, onClose } = usePanel();
@@ -121,7 +124,6 @@ const Message = ({
 
         return `${isToday(date) ? 'Today' : isYesterday(date) ? 'Yesterday' : format(date, 'MMM  d, yyy')} at ${format(date, 'h:mm:ss a')}`;
     };
-    
 
     if (isCompact) {
         return (
@@ -169,6 +171,13 @@ const Message = ({
                                         updatedAt && <span className='text-xs text-muted-foreground'>(edited)</span>
                                     }
                                     <Reactions data={reactions} onChange={handleReaction} />
+                                    <ThreadBar
+                                        count={threadCount}
+                                        image={threadImage}
+                                        name={threadName}
+                                        timestamp={threadTimestamp}
+                                        onClick={() => onOpenMessage(id)}
+                                    />
                                 </div>
                             )
                         }
@@ -238,6 +247,13 @@ const Message = ({
                                     updatedAt && <span className='text-xs text-muted-foreground'>(edited)</span>
                                 }
                                 <Reactions data={reactions} onChange={handleReaction} />
+                                <ThreadBar
+                                    count={threadCount}
+                                    image={threadImage}
+                                    timestamp={threadTimestamp}
+                                    name={threadName}
+                                    onClick={() => onOpenMessage(id)}
+                                />
                             </div>
                         )
                     }
