@@ -17,6 +17,7 @@ interface MemberData {
         phone?: string;
         phoneVerificationTime?: number;
         isAnonymous?: boolean;
+        role?: 'member' | 'admin';
     };
 }
 
