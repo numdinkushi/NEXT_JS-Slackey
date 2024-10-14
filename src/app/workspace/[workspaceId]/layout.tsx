@@ -5,15 +5,15 @@ import Sidebar from './sidebar';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import WorkspaceSidebar from './workspace-sidebar';
 import { usePanel } from '@/hooks/use-panel';
-import { Loader } from 'lucide-react';
 import { Id } from '../../../../convex/_generated/dataModel';
 import Thread from '@/features/messages/components/thread';
 import Loading from '@/components/loading';
+import Profile from '@/features/members/components/profile';
 
 const WorkspaceLayout = ({ children }: { children: React.ReactNode; }) => {
     const [mounted, setMounted] = useState(false);
-    const { parentMessageId, onClose } = usePanel();
-    const showPanel = !!parentMessageId;
+    const { parentMessageId, onClose, profileMemberId } = usePanel();
+    const showPanel = !!parentMessageId || !!profileMemberId;
 
     useEffect(() => {
         setMounted(true);
@@ -53,6 +53,11 @@ const WorkspaceLayout = ({ children }: { children: React.ReactNode; }) => {
                                         parentMessageId ? (
                                             <Thread
                                                 messageId={parentMessageId as Id<'messages'>}
+                                                onClose={onClose}
+                                            />
+                                        ) : profileMemberId ? (
+                                            <Profile
+                                                memberId={profileMemberId as Id<'members'>}
                                                 onClose={onClose}
                                             />
                                         ) : (
