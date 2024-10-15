@@ -17,8 +17,8 @@ interface MemberData {
         phone?: string;
         phoneVerificationTime?: number;
         isAnonymous?: boolean;
-        role?: 'member' | 'admin';
     };
+    role?: 'member' | 'admin';
 }
 
 export const useGetMember = ({ id }: UseGetMemberProps) => {
